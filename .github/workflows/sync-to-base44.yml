@@ -1,0 +1,85 @@
+name: Sync Obsidian Notes to Base44
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  workflow_dispatch: # Allows manual triggering from GitHub UI
+
+jobs:
+  sync-notes:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2 # Fetch current and previous commit for comparison
+
+      - name: Get changed markdown files
+        id: changed-files
+        uses: tj-actions/changed-files@v41
+        with:
+          files: |
+            **/*.md
+
+      - name: Sync changed files to Base44
+        if: steps.changed-files.outputs.any_changed == 'true'
+        env:
+          WEBHOOK_URL: "https://app.base44.com/api/v1/apps/${{ secrets.BASE44_APP_ID }}/functions/syncNoteFromGit"
+          FUNCTION_TOKEN: ${{ secrets.BASE44_FUNCTION_TOKEN }}
+        run: |
+          echo "Starting sync of ${{ steps.changed-files.outputs.all_changed_files_count }} file(s)"
+
+          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+            STATUS="modified" # Default status
+
+            # Check if file was added or removed
+            if echo "${{ steps.changed-files.outputs.added_files }}" | grep -q "$file"; then
+              STATUS="added"
+            elif echo "${{ steps.changed-files.outputs.deleted_files }}" | grep -q "$file"; then
+              STATUS="removed"
+            fi
+
+            echo "Processing: $file (Status: $STATUS)"
+
+            # For removed files, send empty content
+            if [ "$STATUS" == "removed" ]; then
+              CONTENT_B64=""
+            else
+              # Base64 encode the file content
+              CONTENT_B64=$(base64 -w 0 "$file")
+            fi
+
+            # Send to Base44
+            RESPONSE=$(curl -s -w "\n%{http_code}" -X POST "$WEBHOOK_URL" \
+              -H "Content-Type: application/json" \
+              -H "Authorization: Bearer $FUNCTION_TOKEN" \
+              -d @- << EOF
+{
+  "filename": "$file",
+  "status": "$STATUS",
+  "content": "$CONTENT_B64"
+}
+EOF
+)
+
+            # Extract HTTP status code
+            HTTP_CODE=$(echo "$RESPONSE" | tail -n1)
+            RESPONSE_BODY=$(echo "$RESPONSE" | sed '$d')
+
+            if [ "$HTTP_CODE" -ge 200 ] && [ "$HTTP_CODE" -lt 300 ]; then
+              echo "✓ Successfully synced: $file"
+            else
+              echo "✗ Failed to sync: $file (HTTP $HTTP_CODE)"
+              echo "Response: $RESPONSE_BODY"
+              exit 1
+            fi
+          done
+
+          echo "Sync completed successfully!"
+
+      - name: No changes detected
+        if: steps.changed-files.outputs.any_changed != 'true'
+        run: |
+          echo "No markdown files were changed in this push."

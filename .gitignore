@@ -1,0 +1,28 @@
+# Obsidian workspace and cache files
+.obsidian/workspace
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.obsidian/cache
+
+# Obsidian plugins data (keep plugin configs but not runtime data)
+.obsidian/plugins/*/data.json
+.trash/
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+desktop.ini
+
+# Temporary files
+*.tmp
+*~
+.~*
+
+# Node modules (if using any Obsidian plugins that need npm)
+node_modules/
+
+# Environment files (if you add any)
+.env
+.env.local
