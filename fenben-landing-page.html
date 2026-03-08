@@ -10,7 +10,7 @@
   <title>Fenben® Supplements | The Happy Healing Store | Natural Wellness</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -27,28 +27,30 @@
     ============================================================ */
 
     :root {
-      --color-primary: #2D5016;
-      --color-secondary: #3D6B1E;
-      --color-accent: #C8973A;
-      --color-accent-light: #E8C57A;
-      --color-accent-dark: #A07828;
-      --color-bg: #FAF8F4;
-      --color-bg-alt: #F0EDE4;
-      --color-bg-dark: #1A2E0A;
-      --color-text: #1C1C1A;
-      --color-text-muted: #6B6B5E;
-      --color-text-light: #A8A89A;
+      --color-primary: #1B2B4B;
+      --color-secondary: #243660;
+      --color-accent: #C4974A;
+      --color-accent-light: #D4A85A;
+      --color-accent-dark: #A07830;
+      --color-sage: #8BAF8D;
+      --color-bg: #FAF7F2;
+      --color-bg-alt: #F5F0E8;
+      --color-bg-dark: #1B2B4B;
+      --color-text: #2C2C2C;
+      --color-text-muted: #6B6560;
+      --color-text-light: #9E9890;
       --color-white: #FFFFFF;
-      --color-border: #E4DDD0;
-      --color-success: #4A7C2F;
-      --font-heading: "Playfair Display", Georgia, serif;
-      --font-body: "Inter", system-ui, sans-serif;
-      --radius-sm: 8px;
-      --radius-md: 16px;
-      --radius-lg: 24px;
-      --shadow-sm: 0 2px 8px rgba(45,80,22,0.08);
-      --shadow-md: 0 8px 32px rgba(45,80,22,0.12);
-      --shadow-lg: 0 16px 64px rgba(45,80,22,0.16);
+      --color-border: #D9D2C5;
+      --color-success: #8BAF8D;
+      --font-heading: "EB Garamond", "Cormorant Garamond", Georgia, serif;
+      --font-display: "Cormorant Garamond", Georgia, serif;
+      --font-body: "Montserrat", system-ui, sans-serif;
+      --radius-sm: 4px;
+      --radius-md: 8px;
+      --radius-lg: 12px;
+      --shadow-sm: 0 2px 8px rgba(27,43,75,0.07);
+      --shadow-md: 0 8px 32px rgba(27,43,75,0.11);
+      --shadow-lg: 0 16px 64px rgba(27,43,75,0.15);
       --transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
       --max-width: 1280px;
     }
@@ -67,8 +69,9 @@
 
     h1,h2,h3,h4,h5 {
       font-family: var(--font-heading);
-      line-height: 1.2;
+      line-height: 1.15;
       color: var(--color-primary);
+      font-weight: 500;
     }
 
     a { color: inherit; text-decoration: none; }
@@ -107,14 +110,17 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 14px 32px;
-      border-radius: 50px;
-      font-weight: 600;
-      font-size: 0.9375rem;
-      border: 2px solid transparent;
+      padding: 13px 32px;
+      border-radius: 3px;
+      font-weight: 500;
+      font-size: 0.8125rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border: 1.5px solid transparent;
       transition: var(--transition);
       cursor: pointer;
       white-space: nowrap;
+      font-family: var(--font-body);
     }
 
     .btn-primary {
@@ -225,7 +231,7 @@
       transition: box-shadow 0.3s ease;
     }
     #site-nav.scrolled {
-      box-shadow: 0 4px 24px rgba(45,80,22,0.12);
+      box-shadow: 0 4px 24px rgba(27,43,75,0.12);
     }
     .nav-inner {
       display: flex;
@@ -243,17 +249,18 @@
     }
     .nav-logo-main {
       font-family: var(--font-heading);
-      font-size: 1.5rem;
-      font-weight: 700;
+      font-size: 1.625rem;
+      font-weight: 500;
       color: var(--color-primary);
-      letter-spacing: -0.01em;
+      letter-spacing: 0.01em;
+      font-style: italic;
     }
     .nav-logo-sub {
-      font-size: 0.625rem;
+      font-size: 0.5625rem;
       font-weight: 500;
       text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: var(--color-text-muted);
+      letter-spacing: 0.18em;
+      color: var(--color-accent);
     }
     .nav-links {
       display: flex;
@@ -270,20 +277,24 @@
     .nav-links a:hover { color: var(--color-primary); }
     .nav-cta { display: flex; align-items: center; gap: 12px; }
     .nav-shop-btn {
-      background: var(--color-accent);
+      background: var(--color-primary);
       color: white;
-      padding: 10px 24px;
-      border-radius: 50px;
-      font-weight: 600;
-      font-size: 0.875rem;
-      border: none;
+      padding: 9px 22px;
+      border-radius: 3px;
+      font-weight: 500;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border: 1.5px solid var(--color-primary);
       cursor: pointer;
+      font-family: var(--font-body);
       transition: var(--transition);
     }
     .nav-shop-btn:hover {
-      background: var(--color-accent-dark);
+      background: var(--color-accent);
+      border-color: var(--color-accent);
       transform: translateY(-1px);
-      box-shadow: 0 4px 16px rgba(200,151,58,0.3);
+      box-shadow: 0 4px 16px rgba(196,151,74,0.3);
     }
 
     /* Mobile nav */
@@ -353,7 +364,7 @@
       content: "";
       position: absolute;
       inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Cpath d='M20 100 Q35 60 50 100 Q65 140 80 100' fill='none' stroke='%232D5016' stroke-opacity='0.04' stroke-width='2'/%3E%3Cpath d='M120 40 Q135 10 150 40 Q165 70 180 40' fill='none' stroke='%232D5016' stroke-opacity='0.04' stroke-width='1.5'/%3E%3Ccircle cx='100' cy='150' r='3' fill='%23C8973A' fill-opacity='0.06'/%3E%3C/svg%3E");
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Cpath d='M20 100 Q35 60 50 100 Q65 140 80 100' fill='none' stroke='%231B2B4B' stroke-opacity='0.04' stroke-width='2'/%3E%3Cpath d='M120 40 Q135 10 150 40 Q165 70 180 40' fill='none' stroke='%231B2B4B' stroke-opacity='0.04' stroke-width='1.5'/%3E%3Ccircle cx='100' cy='150' r='3' fill='%23C4974A' fill-opacity='0.06'/%3E%3C/svg%3E");
       background-size: 200px 200px;
       pointer-events: none;
     }
@@ -377,11 +388,11 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      background: rgba(200,151,58,0.12);
-      border: 1px solid rgba(200,151,58,0.3);
+      background: rgba(196,151,74,0.12);
+      border: 1px solid rgba(196,151,74,0.3);
       color: var(--color-accent-dark);
       padding: 6px 16px;
-      border-radius: 50px;
+      border-radius: 3px;
       font-size: 0.8125rem;
       font-weight: 600;
       letter-spacing: 0.05em;
@@ -389,11 +400,12 @@
     }
 
     .hero-title {
-      font-size: clamp(2.25rem, 4.5vw, 3.75rem);
-      font-weight: 700;
+      font-size: clamp(2.5rem, 5vw, 4.25rem);
+      font-weight: 500;
       color: var(--color-primary);
-      line-height: 1.1;
+      line-height: 1.08;
       margin-bottom: 24px;
+      letter-spacing: -0.01em;
     }
     .hero-title em {
       font-style: italic;
@@ -461,7 +473,7 @@
     .hero-img-placeholder {
       width: 100%;
       height: 100%;
-      background: linear-gradient(135deg, #2D5016 0%, #4A7C2F 40%, #C8973A 100%);
+      background: linear-gradient(135deg, #1B2B4B 0%, #243660 40%, #C4974A 100%);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -571,7 +583,7 @@
     .trust-icon {
       width: 40px;
       height: 40px;
-      background: linear-gradient(135deg, rgba(45,80,22,0.08), rgba(200,151,58,0.08));
+      background: linear-gradient(135deg, rgba(27,43,75,0.08), rgba(196,151,74,0.08));
       border-radius: var(--radius-sm);
       display: flex;
       align-items: center;
@@ -676,7 +688,7 @@
     .product-img-placeholder {
       width: 100%;
       height: 100%;
-      background: linear-gradient(160deg, var(--color-primary) 0%, var(--color-secondary) 60%, rgba(200,151,58,0.4) 100%);
+      background: linear-gradient(160deg, var(--color-primary) 0%, var(--color-secondary) 60%, rgba(196,151,74,0.4) 100%);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -687,13 +699,13 @@
     }
 
     /* Each product gets a slightly different gradient */
-    .product-card:nth-child(1) .product-img-placeholder { background: linear-gradient(160deg,#2D5016,#4A7C2F,rgba(200,151,58,0.5)); }
-    .product-card:nth-child(2) .product-img-placeholder { background: linear-gradient(160deg,#3D4E0A,#5A7C1A,rgba(200,151,58,0.4)); }
-    .product-card:nth-child(3) .product-img-placeholder { background: linear-gradient(160deg,#2D5016,#3D6B1E,rgba(160,120,40,0.5)); }
-    .product-card:nth-child(4) .product-img-placeholder { background: linear-gradient(160deg,#1A3A0A,#2D5016,rgba(200,151,58,0.6)); }
-    .product-card:nth-child(5) .product-img-placeholder { background: linear-gradient(160deg,#3D5016,#5A7C2F,rgba(180,130,40,0.5)); }
-    .product-card:nth-child(6) .product-img-placeholder { background: linear-gradient(160deg,#2D4016,#4A6B1E,rgba(200,151,58,0.7)); }
-    .product-card:nth-child(7) .product-img-placeholder { background: linear-gradient(160deg,#2D5016,#3D6B1E,rgba(200,151,58,0.45)); }
+    .product-card:nth-child(1) .product-img-placeholder { background: linear-gradient(160deg,#1B2B4B,#243660,rgba(196,151,74,0.5)); }
+    .product-card:nth-child(2) .product-img-placeholder { background: linear-gradient(160deg,#1B2B4B,#2A3F70,rgba(196,151,74,0.4)); }
+    .product-card:nth-child(3) .product-img-placeholder { background: linear-gradient(160deg,#1B2B4B,#243660,rgba(139,175,141,0.5)); }
+    .product-card:nth-child(4) .product-img-placeholder { background: linear-gradient(160deg,#0F1E38,#1B2B4B,rgba(196,151,74,0.6)); }
+    .product-card:nth-child(5) .product-img-placeholder { background: linear-gradient(160deg,#1B2B4B,#2A3F70,rgba(139,175,141,0.6)); }
+    .product-card:nth-child(6) .product-img-placeholder { background: linear-gradient(160deg,#1B2B4B,#243660,rgba(196,151,74,0.7)); }
+    .product-card:nth-child(7) .product-img-placeholder { background: linear-gradient(160deg,#1B2B4B,#243660,rgba(196,151,74,0.45)); }
 
     .product-img-placeholder .pip-label {
       font-size: 0.6875rem;
@@ -728,7 +740,7 @@
       letter-spacing: 0.05em;
       text-transform: uppercase;
       padding: 4px 10px;
-      border-radius: 50px;
+      border-radius: 3px;
     }
 
     .product-body {
@@ -770,7 +782,7 @@
       padding: 10px 16px;
       background: var(--color-primary);
       color: white;
-      border-radius: 50px;
+      border-radius: 3px;
       font-size: 0.8125rem;
       font-weight: 600;
       border: none;
@@ -832,12 +844,12 @@
     .benefit-card:hover {
       transform: translateY(-4px);
       box-shadow: var(--shadow-md);
-      border-color: rgba(200,151,58,0.3);
+      border-color: rgba(196,151,74,0.3);
     }
     .benefit-icon {
       width: 56px;
       height: 56px;
-      background: linear-gradient(135deg, rgba(45,80,22,0.08), rgba(200,151,58,0.12));
+      background: linear-gradient(135deg, rgba(27,43,75,0.08), rgba(196,151,74,0.12));
       border-radius: var(--radius-sm);
       display: flex;
       align-items: center;
@@ -881,7 +893,7 @@
     .story-img { width:100%; height:100%; object-fit:cover; object-position: center top; }
     .story-img-placeholder {
       width:100%; height:100%;
-      background: linear-gradient(160deg, #3D6B1E 0%, #2D5016 50%, #1A2E0A 100%);
+      background: linear-gradient(160deg, #243660 0%, #1B2B4B 50%, #0F1E38 100%);
       display:flex; align-items:center; justify-content:center;
       color:rgba(255,255,255,0.5); font-style:italic; font-size:0.875rem;
     }
@@ -966,7 +978,7 @@
       margin: 0 auto 24px;
       position: relative;
       z-index: 1;
-      box-shadow: 0 8px 24px rgba(200,151,58,0.3);
+      box-shadow: 0 8px 24px rgba(196,151,74,0.3);
     }
     .step-title {
       font-family: var(--font-heading);
@@ -1128,7 +1140,7 @@
       width: 64px;
       height: 64px;
       border-radius: 50%;
-      background: rgba(200,151,58,0.9);
+      background: rgba(196,151,74,0.9);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -1150,7 +1162,7 @@
       font-size: 0.6875rem;
       font-weight: 600;
       padding: 4px 10px;
-      border-radius: 50px;
+      border-radius: 3px;
     }
     /* Real embed container */
     .social-embed-container { border-radius: var(--radius-md); overflow: hidden; background: var(--color-white); }
@@ -1159,7 +1171,7 @@
       font-size: 0.8125rem;
       color: var(--color-text-light);
       padding: 16px;
-      background: rgba(45,80,22,0.04);
+      background: rgba(27,43,75,0.04);
       border-radius: 0 0 var(--radius-md) var(--radius-md);
     }
 
@@ -1292,7 +1304,7 @@
       content: "";
       position: absolute;
       inset: 0;
-      background: radial-gradient(circle at 70% 50%, rgba(200,151,58,0.2) 0%, transparent 60%);
+      background: radial-gradient(circle at 70% 50%, rgba(196,151,74,0.2) 0%, transparent 60%);
       pointer-events: none;
     }
     .cta-title {
@@ -1469,17 +1481,17 @@
     .credential-overlay {
       position: absolute;
       inset: 0;
-      background: rgba(45,80,22,0.0);
+      background: rgba(27,43,75,0.0);
       transition: background 0.3s ease;
       display: flex;
       align-items: flex-end;
       padding: 24px;
     }
-    .credential-card:hover .credential-overlay { background: rgba(45,80,22,0.15); }
+    .credential-card:hover .credential-overlay { background: rgba(27,43,75,0.15); }
     /* Placeholder for credential images */
     .credential-placeholder {
       width: 100%; height: 100%;
-      background: linear-gradient(135deg, #C8973A 0%, #A07828 50%, #2D5016 100%);
+      background: linear-gradient(135deg, #C4974A 0%, #A07830 50%, #1B2B4B 100%);
       display: flex; flex-direction: column;
       align-items: center; justify-content: center;
       gap: 12px; padding: 32px;
@@ -1613,31 +1625,31 @@
     <div class="trust-inner">
       <div class="trust-stat">
         <div class="trust-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2D5016" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1B2B4B" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
         </div>
         <div class="trust-text"><strong>50,000+</strong><span>Happy Customers</span></div>
       </div>
       <div class="trust-stat">
         <div class="trust-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="#C8973A" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="#C4974A" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
         </div>
         <div class="trust-text"><strong>4.9&#9733; Rating</strong><span>Average Review Score</span></div>
       </div>
       <div class="trust-stat">
         <div class="trust-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2D5016" stroke-width="2"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1B2B4B" stroke-width="2"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
         </div>
         <div class="trust-text"><strong>7+ Formulas</strong><span>Product Varieties</span></div>
       </div>
       <div class="trust-stat">
         <div class="trust-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2D5016" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1B2B4B" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
         </div>
         <div class="trust-text"><strong>100% Pure</strong><span>No Fillers or Additives</span></div>
       </div>
       <div class="trust-stat">
         <div class="trust-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2D5016" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1B2B4B" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
         </div>
         <div class="trust-text"><strong>30-Day</strong><span>Money-Back Guarantee</span></div>
       </div>
