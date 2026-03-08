@@ -1511,6 +1511,199 @@
       .credentials-grid { grid-template-columns: 1fr 1fr; }
       .credential-card:last-child { display: none; }
     }
+
+    /* ============================================================
+       ORIGIN STORY SECTION
+    ============================================================ */
+    #story {
+      background: var(--color-white);
+      padding: 96px 0;
+    }
+    .origin-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .origin-text .section-title { text-align: left; }
+    .origin-text p {
+      color: var(--color-text-muted);
+      font-size: 0.95rem;
+      line-height: 1.85;
+      margin-bottom: 18px;
+    }
+    .origin-text p strong { color: var(--color-text); font-weight: 600; }
+    .origin-visual {
+      background: linear-gradient(145deg, #000000, #1A1A1A);
+      padding: 52px 40px;
+      position: relative;
+    }
+    .origin-visual::before {
+      content: '';
+      position: absolute;
+      top: 10px; left: 10px; right: -10px; bottom: -10px;
+      border: 1px solid var(--color-accent);
+      z-index: -1;
+    }
+    .origin-year {
+      font-size: 5rem;
+      font-weight: 700;
+      color: var(--color-accent);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .origin-year-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 36px;
+    }
+    .origin-stats { display: flex; flex-direction: column; gap: 0; }
+    .origin-stat {
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding: 20px 0;
+    }
+    .origin-stat-num {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--color-accent-light);
+      margin-bottom: 4px;
+    }
+    .origin-stat-text {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.5;
+    }
+    @media (max-width: 1023px) {
+      .origin-grid { grid-template-columns: 1fr; gap: 48px; }
+    }
+
+    /* ============================================================
+       DIFFERENTIATORS — "THE STANDARD OTHERS FOLLOW"
+    ============================================================ */
+    #standard {
+      background: var(--color-bg);
+      padding: 96px 0;
+    }
+    .standard-header { text-align: center; margin-bottom: 56px; }
+    .standard-header .section-subtitle {
+      max-width: 580px;
+      margin: 0 auto;
+    }
+    .standard-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+    .standard-card {
+      background: var(--color-white);
+      padding: 44px 36px;
+      position: relative;
+      transition: transform 0.2s;
+    }
+    .standard-card:hover { transform: translateY(-4px); }
+    .standard-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--color-accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s;
+    }
+    .standard-card:hover::after { transform: scaleX(1); }
+    .standard-icon {
+      width: 44px; height: 44px;
+      border: 1px solid var(--color-accent);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 24px;
+      color: var(--color-accent);
+    }
+    .standard-card h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--color-primary);
+      margin-bottom: 12px;
+    }
+    .standard-card p {
+      font-size: 0.875rem;
+      color: var(--color-text-muted);
+      line-height: 1.8;
+    }
+    @media (max-width: 1023px) {
+      .standard-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 600px) {
+      .standard-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ============================================================
+       PROVENANCE — "WHAT YOU ARE REALLY CHOOSING"
+    ============================================================ */
+    #provenance {
+      background: var(--color-white);
+      padding: 96px 0;
+    }
+    .provenance-header { text-align: center; margin-bottom: 64px; }
+    .provenance-divider {
+      width: 48px; height: 2px;
+      background: var(--color-accent);
+      margin: 20px auto 0;
+    }
+    .prov-list {
+      max-width: 800px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+    }
+    .prov-item {
+      display: grid;
+      grid-template-columns: 72px 1fr;
+      gap: 32px;
+      padding: 36px 0;
+      border-bottom: 1px solid var(--color-border);
+      align-items: start;
+    }
+    .prov-item:last-child { border-bottom: none; }
+    .prov-num {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--color-accent);
+      line-height: 1;
+    }
+    .prov-item h4 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--color-primary);
+      margin-bottom: 10px;
+    }
+    .prov-item p {
+      font-size: 0.9rem;
+      color: var(--color-text-muted);
+      line-height: 1.85;
+    }
+    @media (max-width: 600px) {
+      .prov-item { grid-template-columns: 48px 1fr; gap: 20px; }
+      .prov-num { font-size: 1.75rem; }
+    }
+
+    /* ============================================================
+       RESEARCH DISCLAIMER
+    ============================================================ */
+    #research-disclaimer {
+      background: #111;
+      padding: 28px 48px;
+      text-align: center;
+    }
+    #research-disclaimer p {
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.35);
+      max-width: 820px;
+      margin: 0 auto;
+      line-height: 1.75;
+    }
   </style>
 </head>
 <body>
@@ -1519,8 +1712,8 @@
        1. ANNOUNCEMENT BAR
   ============================================================ -->
   <div id="announcement-bar" role="banner">
-    Free Shipping on Orders Over $75 &nbsp;|&nbsp; Use Code <strong>HEAL10</strong> for 10% Off Your First Order
-    <a href="https://thehappyhealingstore.com/product/fenben-pure-powder/">Shop Now &rarr;</a>
+    The Original Fenben&#174; Brand &nbsp;&middot;&nbsp; Founded 2017 by Caroline Williams &nbsp;&middot;&nbsp; Free Shipping on Orders Over $75
+    <a href="https://thehappyhealingstore.com/shop/">Shop the Original &rarr;</a>
     <button class="announce-close" aria-label="Dismiss announcement" onclick="document.getElementById('announcement-bar').style.display='none'">&times;</button>
   </div>
 
@@ -1569,27 +1762,27 @@
       <div class="hero-content fade-in-up">
         <span class="hero-eyebrow">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          Trusted by 50,000+ Wellness Seekers
+          The Original Fenben&#174; Brand &mdash; Est. 2017
         </span>
         <h1 class="hero-title">
-          Your Journey Back to<br>
-          <em>Vitality</em> Starts Here
+          Before There Was a Market,<br>
+          <em>There Was a Mission.</em>
         </h1>
         <p class="hero-sub">
-          Fenben&#174; by The Happy Healing Store &mdash; premium-grade wellness supplements
-          crafted with pharmaceutical purity for those who refuse to settle for less.
+          The standard others have measured themselves against since 2017. Founded by Caroline Williams.
+          Carried forward by The Happy Healing Store.
         </p>
         <div class="hero-ctas">
           <a href="#products" class="btn btn-primary">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/></svg>
             Shop Fenben&#174; Products
           </a>
-          <a href="#story" class="btn btn-outline">Learn More</a>
+          <a href="#story" class="btn btn-outline">Our Origin Story</a>
         </div>
         <div class="hero-badges">
-          <span class="hero-badge">Lab Tested</span>
-          <span class="hero-badge">USA Formulated</span>
-          <span class="hero-badge">30-Day Guarantee</span>
+          <span class="hero-badge">Founded 2017</span>
+          <span class="hero-badge">Registered Trademark &#174;</span>
+          <span class="hero-badge">Third-Party Lab Tested</span>
         </div>
       </div>
 
@@ -1624,33 +1817,81 @@
     <div class="trust-inner">
       <div class="trust-stat">
         <div class="trust-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 8 14"/></svg>
         </div>
-        <div class="trust-text"><strong>50,000+</strong><span>Happy Customers</span></div>
-      </div>
-      <div class="trust-stat">
-        <div class="trust-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="#C7992F" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-        </div>
-        <div class="trust-text"><strong>4.9&#9733; Rating</strong><span>Average Review Score</span></div>
-      </div>
-      <div class="trust-stat">
-        <div class="trust-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
-        </div>
-        <div class="trust-text"><strong>7+ Formulas</strong><span>Product Varieties</span></div>
+        <div class="trust-text"><strong>Founded 2017</strong><span>The Original Fenben&#174; Brand</span></div>
       </div>
       <div class="trust-stat">
         <div class="trust-icon">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
         </div>
-        <div class="trust-text"><strong>100% Pure</strong><span>No Fillers or Additives</span></div>
+        <div class="trust-text"><strong>Registered &#174;</strong><span>Trademark Protected Since 2017</span></div>
+      </div>
+      <div class="trust-stat">
+        <div class="trust-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+        </div>
+        <div class="trust-text"><strong>Third-Party Tested</strong><span>Every Batch Verified</span></div>
+      </div>
+      <div class="trust-stat">
+        <div class="trust-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
+        </div>
+        <div class="trust-text"><strong>Non-Veterinary</strong><span>Purpose-Formulated for Research</span></div>
       </div>
       <div class="trust-stat">
         <div class="trust-icon">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
         </div>
-        <div class="trust-text"><strong>30-Day</strong><span>Money-Back Guarantee</span></div>
+        <div class="trust-text"><strong>cGMP Certified</strong><span>USA-Manufactured Facility</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       4b. PROVENANCE — "WHAT YOU ARE REALLY CHOOSING"
+  ============================================================ -->
+  <section id="provenance" aria-label="What you are really choosing">
+    <div class="container">
+      <div class="provenance-header fade-in-up">
+        <p class="section-label">Why Fenben&#174; Is Different</p>
+        <h2 class="section-title">What You Are<br><em>Really Choosing</em></h2>
+        <div class="provenance-divider"></div>
+      </div>
+      <div class="prov-list">
+
+        <div class="prov-item fade-in-up">
+          <div class="prov-num">01</div>
+          <div>
+            <h4>The Ingredient vs. The Brand</h4>
+            <p>Fenbendazole is the compound &mdash; a molecule anyone can source. Fenben&#174; is the brand that chose to stand for something more: a defined standard of purity, a responsible founder, and a track record you can verify. When you see Fenben&#174;, you are not just looking at an ingredient list. You are looking at a history.</p>
+          </div>
+        </div>
+
+        <div class="prov-item fade-in-up" style="animation-delay:0.1s">
+          <div class="prov-num">02</div>
+          <div>
+            <h4>Not a Trend. A Timeline.</h4>
+            <p>Many brands appeared in this space after fenbendazole became a familiar term. Fenben&#174; was already there, years before the visibility, creating the conditions for the conversation to happen in the open. That timeline matters. You cannot fake 2017.</p>
+          </div>
+        </div>
+
+        <div class="prov-item fade-in-up" style="animation-delay:0.2s">
+          <div class="prov-num">03</div>
+          <div>
+            <h4>The &#174; Is a Promise, Not a Logo</h4>
+            <p>The registered trademark behind Fenben&#174; means origin, ownership, and identity. It means that if something doesn&rsquo;t align with the values this brand was built on, it doesn&rsquo;t belong under that name &mdash; and it never has.</p>
+          </div>
+        </div>
+
+        <div class="prov-item fade-in-up" style="animation-delay:0.3s">
+          <div class="prov-num">04</div>
+          <div>
+            <h4>Integrity Was Always the Point</h4>
+            <p>Caroline Williams didn&rsquo;t create Fenben&#174; because a market existed. She created it because researchers and investigators deserved to seek answers with dignity &mdash; without improvisation, and without compromising on the integrity of what they were using. That mission has never changed.</p>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
@@ -1848,57 +2089,69 @@
   </section>
 
   <!-- ============================================================
-       6. BENEFITS
+       6. THE STANDARD OTHERS FOLLOW
   ============================================================ -->
-  <section id="benefits" aria-label="Why choose Fenben">
+  <section id="standard" aria-label="The Fenben standard">
     <div class="container">
-      <div class="benefits-header fade-in-up">
-        <p class="section-label">Why Choose Us</p>
-        <h2 class="section-title">Why Thousands Choose Fenben&#174;</h2>
+      <div class="standard-header fade-in-up">
+        <p class="section-label">The Fenben&#174; Standard</p>
+        <h2 class="section-title">The Standard Others<br><em>Had to Follow</em></h2>
+        <p class="section-subtitle">
+          Before Fenben&#174;, there were no agreed-upon purity standards, no guidance, and no brand
+          willing to say: <em>&ldquo;Researchers deserve better.&rdquo;</em> Fenben&#174; drew the line first.
+          The industry followed.
+        </p>
       </div>
-      <div class="benefits-grid">
-        <div class="benefit-card fade-in-up">
-          <div class="benefit-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      <div class="standard-grid">
+
+        <div class="standard-card fade-in-up">
+          <div class="standard-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
           </div>
-          <h3 class="benefit-title">Pure Formulation</h3>
-          <p class="benefit-desc">No fillers, no additives &mdash; just pharmaceutical-grade purity you can trust in every dose.</p>
+          <h3>Non-Negotiable Purity</h3>
+          <p>From day one, Fenben&#174; sourced and tested fenbendazole to a level that removed guesswork. While others sold animal paste, we built a formulation designed specifically for non-veterinary research &mdash; no improvisation, no compromise.</p>
         </div>
-        <div class="benefit-card fade-in-up">
-          <div class="benefit-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+
+        <div class="standard-card fade-in-up" style="animation-delay:0.08s">
+          <div class="standard-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
           </div>
-          <h3 class="benefit-title">Lab Verified</h3>
-          <p class="benefit-desc">Every batch is third-party tested for potency, purity, and safety before it reaches your hands.</p>
+          <h3>Radical Transparency</h3>
+          <p>Labels, explanations, and content were designed to illuminate, not obscure. The goal has always been to help investigators understand exactly what they have, how it was formulated, and how it differs from anything that came before.</p>
         </div>
-        <div class="benefit-card fade-in-up">
-          <div class="benefit-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+
+        <div class="standard-card fade-in-up" style="animation-delay:0.16s">
+          <div class="standard-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
           </div>
-          <h3 class="benefit-title">Multiple Formats</h3>
-          <p class="benefit-desc">Powder, capsules, tablets &mdash; choose the format and strength that fits your lifestyle and protocol.</p>
+          <h3>Respect for the Investigator</h3>
+          <p>From packaging to messaging, the underlying assumption of Fenben&#174; has never wavered: researchers and investigators deserve a product that meets a high standard of quality, clarity, and accountability &mdash; not workarounds.</p>
         </div>
-        <div class="benefit-card fade-in-up">
-          <div class="benefit-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+
+        <div class="standard-card fade-in-up" style="animation-delay:0.24s">
+          <div class="standard-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 8 14"/></svg>
           </div>
-          <h3 class="benefit-title">Trusted Source</h3>
-          <p class="benefit-desc">Proudly brought to you by The Happy Healing Store &mdash; a trusted name in wellness since 2017.</p>
+          <h3>A Name With History</h3>
+          <p>The &#174; next to Fenben&#174; is not decoration. It represents a specific moment in time, a founder who can be named, and a consistent identity maintained since 2017. Every year that passes strengthens what that mark means.</p>
         </div>
-        <div class="benefit-card fade-in-up">
-          <div class="benefit-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+
+        <div class="standard-card fade-in-up" style="animation-delay:0.32s">
+          <div class="standard-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
           </div>
-          <h3 class="benefit-title">USA Formulated</h3>
-          <p class="benefit-desc">Manufactured in cGMP-certified USA facilities to the highest pharmaceutical standards.</p>
+          <h3>Proven Over Time</h3>
+          <p>Trust in this category cannot be a feeling &mdash; it must be a track record. Fenben&#174; has operated under the same name, the same mission, and the same values for years, while others appeared overnight to chase a trend.</p>
         </div>
-        <div class="benefit-card fade-in-up">
-          <div class="benefit-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+
+        <div class="standard-card fade-in-up" style="animation-delay:0.40s">
+          <div class="standard-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
           </div>
-          <h3 class="benefit-title">Real Results</h3>
-          <p class="benefit-desc">Backed by thousands of verified customer testimonials from people on real wellness journeys.</p>
+          <h3>Community-Built Mission</h3>
+          <p>Fenben&#174; was not created in response to hypothetical market demand. It emerged from real communities, real stories, and a refusal to accept &ldquo;there&rsquo;s nothing more we can do&rdquo; as the final word. That is the foundation it still stands on today.</p>
         </div>
+
       </div>
     </div>
   </section>
@@ -1959,36 +2212,65 @@
   </section>
 
   <!-- ============================================================
-       7. BRAND STORY
+       7. ORIGIN STORY (Caroline Williams / Founder)
   ============================================================ -->
-  <section id="story" aria-label="Our brand story">
-    <div class="story-grid">
-      <div class="story-image-wrap fade-in-up">
-        <!-- SWAP: <img src="/wp-content/uploads/fenben/story-woman-hiking.jpg" alt="Woman hiking mountain trail at sunrise" class="story-img" loading="lazy"> -->
-        <div class="story-img-placeholder">
-          <span>Story Image: Woman hiking mountain trail<br>Replace with brand photo</span>
+  <section id="story" aria-label="The founding story" style="scroll-margin-top:80px">
+    <div class="container">
+      <div class="origin-grid">
+        <div class="origin-text fade-in-up">
+          <p class="section-label">The Founding Story</p>
+          <h2 class="section-title">Where the<br><em>Movement Began</em></h2>
+          <p>
+            In 2017, Caroline Williams identified a critical gap that no one else was addressing.
+            Researchers and investigators exploring fenbendazole for non-veterinary study had nowhere
+            reliable to turn. The only option available was <strong>veterinary-grade paste</strong> &mdash;
+            poorly standardized, inconsistently dosed, and lacking the quality control required for
+            rigorous investigation.
+          </p>
+          <p>
+            Caroline identified three core problems: sourcing research-grade fenbendazole from animal
+            formulations was imprecise and unreliable; the lack of standardization made consistent
+            investigation difficult; and there was <strong>no accountable, transparent supplier</strong>
+            willing to serve the research community&rsquo;s actual needs.
+          </p>
+          <p>
+            So she built what didn&rsquo;t exist. She introduced the first fenbendazole product
+            formulated specifically for non-veterinary research use &mdash; and trademarked the name
+            <strong>Fenben&#174;</strong>. Not to follow a trend. To create the path before a path existed.
+          </p>
+          <p>
+            Today, The Happy Healing Store is honored to carry that mission forward as the home of
+            the original Fenben&#174; brand &mdash; the brand that <em>defined</em> the standard before
+            there was a standard to define.
+          </p>
+          <a href="https://thehappyhealingstore.com/happy-healing/" class="story-link" style="margin-top:8px;display:inline-flex;align-items:center;gap:8px;">
+            Read Caroline&rsquo;s Full Story
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
         </div>
-      </div>
-      <div class="story-content fade-in-up">
-        <p class="section-label">Our Story</p>
-        <blockquote class="story-quote">
-          &ldquo;We believe in nature&rsquo;s wisdom &mdash; and your right to access it.&rdquo;
-        </blockquote>
-        <p class="story-text">
-          The Happy Healing Store was founded in 2017 with one mission: to make effective,
-          pharmaceutical-grade wellness supplements accessible to everyone. We saw too many people
-          searching for alternatives &mdash; people who deserved better options and better information.
-        </p>
-        <p class="story-text">
-          Fenben&#174; was born from that mission. We spent years sourcing the purest fenbendazole
-          available, developing multiple formats to suit every lifestyle, and building a community of
-          wellness seekers who support each other&rsquo;s journeys. Every product we make carries
-          our commitment to purity, transparency, and your wellbeing.
-        </p>
-        <a href="https://thehappyhealingstore.com" class="story-link">
-          Read Our Full Story
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </a>
+
+        <div class="origin-visual fade-in-up" style="animation-delay:0.2s">
+          <div class="origin-year">2017</div>
+          <div class="origin-year-label">Year Founded &mdash; The Original</div>
+          <div class="origin-stats">
+            <div class="origin-stat">
+              <div class="origin-stat-num">First</div>
+              <div class="origin-stat-text">Fenbendazole brand formulated for non-veterinary research use</div>
+            </div>
+            <div class="origin-stat">
+              <div class="origin-stat-num">The &#174;</div>
+              <div class="origin-stat-text">Registered trademark &mdash; owned, accountable, original. Not a generic label.</div>
+            </div>
+            <div class="origin-stat">
+              <div class="origin-stat-num">Global</div>
+              <div class="origin-stat-text">Community of researchers, scientists &amp; investigators who trust the original</div>
+            </div>
+            <div class="origin-stat">
+              <div class="origin-stat-num">Still</div>
+              <div class="origin-stat-text">The same mission. The same standards. The same name since 2017.</div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -1999,25 +2281,25 @@
   <section id="how-it-works" aria-label="How Fenben works">
     <div class="container">
       <div class="how-header fade-in-up">
-        <p class="section-label">Simple Steps</p>
-        <h2 class="section-title">Starting Your Fenben&#174; Journey</h2>
-        <p class="section-subtitle">Three simple steps to begin your wellness protocol.</p>
+        <p class="section-label">Working With Fenben&#174;</p>
+        <h2 class="section-title">Starting Your Fenben&#174; Protocol</h2>
+        <p class="section-subtitle">Three steps to sourcing the original &mdash; with confidence.</p>
       </div>
       <div class="steps-grid">
         <div class="step fade-in-up">
           <div class="step-num">1</div>
           <h3 class="step-title">Choose Your Formula</h3>
-          <p class="step-desc">Browse our 7 Fenben&#174; formulations &mdash; from pure powder to precise-dose tablets &mdash; and find the format that fits your lifestyle.</p>
+          <p class="step-desc">Browse 7 Fenben&#174; formulations &mdash; from pure powder to precise-dose tablets &mdash; and select the format that best fits your investigative protocol.</p>
         </div>
         <div class="step fade-in-up" style="animation-delay:0.15s">
           <div class="step-num">2</div>
-          <h3 class="step-title">Begin Your Protocol</h3>
-          <p class="step-desc">Follow our simple dosing guide. Each Fenben&#174; product comes with clear instructions to support your wellness journey.</p>
+          <h3 class="step-title">Verify the Standard</h3>
+          <p class="step-desc">Review batch lab reports and certification before your research begins. Fenben&#174; provides full purity documentation &mdash; no guesswork, no improvisation.</p>
         </div>
         <div class="step fade-in-up" style="animation-delay:0.3s">
           <div class="step-num">3</div>
-          <h3 class="step-title">Feel the Difference</h3>
-          <p class="step-desc">Track your wellness journey and join over 50,000 customers who have made Fenben&#174; a part of their daily health routine.</p>
+          <h3 class="step-title">Trust the Original</h3>
+          <p class="step-desc">Join thousands of researchers and investigators who rely on Fenben&#174; &mdash; the brand that defined the standard, not one that followed it.</p>
         </div>
       </div>
     </div>
@@ -2225,90 +2507,79 @@
   <section id="faq" aria-label="Frequently asked questions">
     <div class="container">
       <div class="faq-header fade-in-up">
-        <p class="section-label">Got Questions?</p>
+        <p class="section-label">Common Questions</p>
         <h2 class="section-title">Frequently Asked Questions</h2>
-        <p class="section-subtitle">Everything you need to know about Fenben&#174; by The Happy Healing Store.</p>
+        <p class="section-subtitle">Everything you need to know about Fenben&#174; &mdash; the original brand, the standard, and the story.</p>
       </div>
       <div class="faq-list" id="faq-list">
 
         <div class="faq-item">
           <button class="faq-question" aria-expanded="false">
-            What is Fenben&#174; and how does it work?
+            What makes Fenben&#174; different from other fenbendazole products?
             <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
           </button>
           <div class="faq-answer">
-            <p>Fenben&#174; contains fenbendazole, a benzimidazole compound with an extensive history
-            of use and a well-documented safety profile. Our products are formulated to pharmaceutical-grade
-            standards and undergo third-party testing before reaching you. We offer Fenben&#174; in multiple
-            formats and strengths so you can find the right protocol for your wellness journey.</p>
+            <p>Fenben&#174; is the original brand &mdash; founded in 2017 before the fenbendazole space became widely visible. It was built from the beginning with non-veterinary purity standards, a registered trademark, and a founder who can be named. Most products simply list fenbendazole as an ingredient. Fenben&#174; is a defined brand with a history, a standard, and accountability built in from day one.</p>
           </div>
         </div>
 
         <div class="faq-item">
           <button class="faq-question" aria-expanded="false">
-            What&rsquo;s the difference between Fenben&#174; product formats?
+            Who founded Fenben&#174; and what is The Happy Healing Store&rsquo;s role?
             <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
           </button>
           <div class="faq-answer">
-            <p>We offer several formats to suit every preference: <strong>Pure Powder</strong> (50g) gives
-            you maximum dosing flexibility; <strong>Tablets</strong> come in 222mg, 500mg, and 750mg strengths
-            for precise, consistent dosing; <strong>Bio Capsules</strong> feature an enhanced bioavailability
-            formula; <strong>Pure Capsules</strong> offer the pure compound in capsule form. The <strong>Trio Bundle</strong>
-            combines three bestsellers for exceptional value.</p>
+            <p>Fenben&#174; was founded by Caroline Williams in 2017. She identified a critical gap: researchers and investigators had no reliable, non-veterinary source of standardized fenbendazole. She built the solution before there was a market for it. The Happy Healing Store carries the Fenben&#174; brand as its anchor product, honoring that original mission: trustworthy access to the original Fenben&#174; with integrity and verified purity.</p>
           </div>
         </div>
 
         <div class="faq-item">
           <button class="faq-question" aria-expanded="false">
-            How do I choose the right Fenben&#174; product for me?
+            What does the &#174; trademark mean for Fenben&#174;?
             <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
           </button>
           <div class="faq-answer">
-            <p>For those new to Fenben&#174;, we often recommend starting with our 222mg Tablets for
-            ease of use and precise dosing. If you prefer flexible dosing or want to customize your
-            protocol, our Pure Powder is an excellent choice. For enhanced absorption, try our Bio
-            Capsules. We always recommend consulting with a qualified healthcare professional before
-            beginning any new supplement regimen.</p>
+            <p>The registered mark (&#174;) on Fenben&#174; represents three things simultaneously: <strong>Origin</strong> &mdash; a specific founding moment in 2017; <strong>Ownership</strong> &mdash; a named, accountable founder; and <strong>Identity</strong> &mdash; a consistent standard that cannot be co-opted or diluted by generic imitators. Fenbendazole is the compound. Fenben&#174; is the brand, the standard, and the accountability.</p>
           </div>
         </div>
 
         <div class="faq-item">
           <button class="faq-question" aria-expanded="false">
-            Are Fenben&#174; products safe for daily use?
+            What Fenben&#174; product formats are available?
             <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
           </button>
           <div class="faq-answer">
-            <p>Our Fenben&#174; products are formulated to pharmaceutical-grade standards and
-            manufactured in cGMP-certified facilities. Each batch is third-party tested for purity
-            and potency. However, as with any supplement, we strongly recommend consulting with a
-            healthcare professional before starting use, particularly if you have pre-existing conditions
-            or take prescription medications.</p>
+            <p>Fenben&#174; is available in several formulations to suit different protocols: <strong>Pure Powder</strong> (50g) for maximum dosing flexibility; <strong>Tablets</strong> in 222mg, 500mg, and 750mg for precise, consistent dosing; <strong>Bio Capsules</strong> with an enhanced bioavailability formula; <strong>Pure Capsules</strong> for the pure compound in capsule form; and the <strong>Trio Bundle</strong> for investigators wanting comprehensive value. Use the <a href="https://thehappyhealingstore.com/which-fenben-is-right/" style="color:var(--color-accent)">Which Fenben Is Right?</a> guide to find your ideal formulation.</p>
           </div>
         </div>
 
         <div class="faq-item">
           <button class="faq-question" aria-expanded="false">
-            What is your return policy?
+            Is Fenben&#174; the same as veterinary fenbendazole paste?
             <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
           </button>
           <div class="faq-answer">
-            <p>We offer a <strong>30-day money-back guarantee</strong> on all Fenben&#174; products.
-            If you&rsquo;re not completely satisfied with your purchase for any reason, contact our
-            customer care team within 30 days of delivery for a full refund. We stand behind our
-            products and your satisfaction is our priority.</p>
+            <p>No. Fenben&#174; was specifically created to move beyond the veterinary paste that was the only option before 2017. It is formulated to non-veterinary purity standards (99%+), clearly labeled, third-party tested, and designed with researchers and investigators in mind &mdash; not livestock. This distinction is precisely why the brand was created.</p>
           </div>
         </div>
 
         <div class="faq-item">
           <button class="faq-question" aria-expanded="false">
-            How long does shipping take?
+            What is Fenben&#174; intended for?
             <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
           </button>
           <div class="faq-answer">
-            <p>All Fenben&#174; orders ship within 1&ndash;2 business days from our USA warehouse.
-            Standard shipping typically arrives in 3&ndash;5 business days. We offer free shipping
-            on orders over $75. Expedited shipping options are available at checkout. You&rsquo;ll
-            receive a tracking number by email as soon as your order ships.</p>
+            <p>Fenben&#174; products are provided for researchers, scientists, and laboratories to explore their potential applications. They are not intended to diagnose, treat, cure, or prevent any disease. Please consult a qualified healthcare professional regarding any health-related decisions.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            What is your return and shipping policy?
+            <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+          </button>
+          <div class="faq-answer">
+            <p>All Fenben&#174; orders ship within 1&ndash;2 business days from our USA warehouse, with standard delivery in 3&ndash;5 business days. Free shipping on orders over $75. We offer a <strong>30-day money-back guarantee</strong> &mdash; if you&rsquo;re not satisfied for any reason, contact our team within 30 days of delivery for a full refund.</p>
           </div>
         </div>
 
@@ -2321,14 +2592,15 @@
   ============================================================ -->
   <section id="cta-banner" aria-label="Call to action">
     <div class="container">
-      <h2 class="cta-title fade-in-up">Ready to Reclaim Your Health?</h2>
-      <p class="cta-sub fade-in-up">Join over 50,000 people who&rsquo;ve chosen Fenben&#174; by The Happy Healing Store.</p>
+      <p class="section-label" style="color:var(--color-accent-light);margin-bottom:12px;">The Original. The Standard.</p>
+      <h2 class="cta-title fade-in-up">Choose the Brand That<br>Set the Bar.</h2>
+      <p class="cta-sub fade-in-up">For those just discovering this story &mdash; welcome. For those who have been here from the beginning &mdash; you already know. Before there was a market, there was a mission. That mission is Fenben&#174;.</p>
       <div class="cta-actions fade-in-up">
-        <a href="https://thehappyhealingstore.com" class="btn btn-accent">
-          Shop All Fenben&#174; Products
+        <a href="https://thehappyhealingstore.com/shop/" class="btn btn-accent">
+          Shop Fenben&#174; Now
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </a>
-        <a href="#faq" class="btn btn-outline-white">Read FAQs</a>
+        <a href="#story" class="btn btn-outline-white">Read the Full Story</a>
       </div>
       <div class="trust-seals">
         <div class="seal">
@@ -2350,6 +2622,18 @@
   </main><!-- /main -->
 
   <!-- ============================================================
+       RESEARCH DISCLAIMER
+  ============================================================ -->
+  <div id="research-disclaimer" role="note" aria-label="Research notice">
+    <p>
+      Fenben&#174; products are provided for researchers, scientists, and laboratories to explore their potential applications.
+      These statements have not been evaluated by the Food and Drug Administration.
+      These products are not intended to diagnose, treat, cure, or prevent any disease.
+      Please consult a qualified healthcare professional before making any health-related decisions.
+    </p>
+  </div>
+
+  <!-- ============================================================
        13. FOOTER
   ============================================================ -->
   <footer id="site-footer" aria-label="Site footer">
@@ -2360,7 +2644,7 @@
         <div class="footer-col">
           <div class="footer-brand-logo">Fenben&#174;</div>
           <div class="footer-brand-sub">by The Happy Healing Store</div>
-          <p class="footer-tagline">Premium-grade fenbendazole supplements. Lab-tested, USA-formulated, trusted since 2017.</p>
+          <p class="footer-tagline">The original Fenben&#174; brand, rooted in integrity and built on purity since 2017. Founded by Caroline Williams. Carried forward by The Happy Healing Store.</p>
           <div class="social-icons">
             <!-- Facebook -->
             <a href="https://facebook.com/thehappyhealingstore" class="social-icon" aria-label="Facebook" rel="noopener">
