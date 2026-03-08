@@ -1190,21 +1190,13 @@
     }
     .ugc-photo {
       aspect-ratio: 1;
-      background: var(--color-bg);
       border-radius: var(--radius-sm);
-      border: 2px dashed var(--color-border);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      color: var(--color-text-light);
-      font-size: 0.75rem;
+      overflow: hidden;
       cursor: pointer;
       transition: var(--transition);
     }
-    .ugc-photo:hover { border-color: var(--color-accent); color: var(--color-accent); }
-    .ugc-photo svg { width: 24px; height: 24px; opacity: 0.4; }
+    .ugc-photo:hover { transform: scale(1.02); }
+    .ugc-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
     .ugc-coming-soon {
       text-align: center;
       font-size: 0.875rem;
@@ -1787,12 +1779,7 @@
       </div>
 
       <div class="hero-image-wrap fade-in-up" style="animation-delay:0.2s">
-        <!-- SWAP: Replace with hero couple golden field image -->
-        <!-- <img src="/wp-content/uploads/fenben/hero-couple-golden-field.jpg" alt="Happy couple walking through golden fields at sunset" class="hero-img" loading="eager"> -->
-        <div class="hero-img-placeholder">
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="opacity:0.4"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-          <span style="opacity:0.5;font-size:0.75rem">Hero Image: Couple in Golden Field<br>Replace with brand photo</span>
-        </div>
+        <img src="images/hero-fenben-bio.jpg" alt="Fenben Bio capsules on stone plinth" class="hero-img" loading="eager">
         <div class="hero-image-card">
           <div class="hero-card-icon">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
@@ -2472,31 +2459,24 @@
       <h3 class="ugc-photos-heading">From Our Community</h3>
       <div class="ugc-photo-grid">
         <div class="ugc-photo">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-          <span>UGC Photo 1</span>
+          <img src="images/ugc-1.jpeg" alt="Customer holding Fenben Tabs" loading="lazy">
         </div>
         <div class="ugc-photo">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-          <span>UGC Photo 2</span>
+          <img src="images/ugc-2.jpeg" alt="Customer holding Fenben Pure Capsules" loading="lazy">
         </div>
         <div class="ugc-photo">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-          <span>UGC Photo 3</span>
+          <img src="images/ugc-3.jpeg" alt="Customer holding Fenben Pure Capsules" loading="lazy">
         </div>
         <div class="ugc-photo">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-          <span>UGC Photo 4</span>
+          <img src="images/ugc-4.jpeg" alt="Customer holding Fenben Pure Capsules" loading="lazy">
         </div>
         <div class="ugc-photo">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-          <span>UGC Photo 5</span>
+          <img src="images/ugc-5.jpeg" alt="Customer holding Fenben Pure Capsules" loading="lazy">
         </div>
         <div class="ugc-photo">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-          <span>UGC Photo 6</span>
+          <img src="images/ugc-1.jpeg" alt="Customer holding Fenben Tabs" loading="lazy">
         </div>
       </div>
-      <p class="ugc-coming-soon">Influencer &amp; community photos coming soon &mdash; upload your images to populate this grid.</p>
       <p class="t-disclaimer">&#42; Individual results may vary.</p>
     </div>
   </section>
