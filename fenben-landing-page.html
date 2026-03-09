@@ -1708,19 +1708,46 @@
     }
 
     /* ============================================================
-       RESEARCH DISCLAIMER
+       RESEARCH DISCLAIMER (top + bottom)
     ============================================================ */
+    /* Top banner disclaimer */
+    #research-notice-top {
+      background: #1a1a12;
+      border-bottom: 1px solid rgba(199,153,47,0.25);
+      padding: 10px 48px;
+      text-align: center;
+    }
+    #research-notice-top p {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.72);
+      max-width: 900px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+    #research-notice-top strong {
+      color: var(--color-accent-light);
+    }
+    @media (max-width: 767px) {
+      #research-notice-top { padding: 10px 16px; font-size: 0.6875rem; }
+    }
+
+    /* Bottom disclaimer — more visible */
     #research-disclaimer {
       background: #111;
-      padding: 28px 48px;
+      border-top: 1px solid rgba(199,153,47,0.2);
+      padding: 32px 48px;
       text-align: center;
     }
     #research-disclaimer p {
-      font-size: 0.72rem;
-      color: rgba(255,255,255,0.35);
+      font-size: 0.8125rem;
+      color: rgba(255,255,255,0.55);
       max-width: 820px;
       margin: 0 auto;
-      line-height: 1.75;
+      line-height: 1.8;
+    }
+    #research-disclaimer strong {
+      color: rgba(255,255,255,0.75);
+      font-weight: 600;
     }
   </style>
 </head>
@@ -1733,6 +1760,13 @@
     The Original Fenben&#174; Brand &nbsp;&middot;&nbsp; Est. 2017 &nbsp;&middot;&nbsp; Free Shipping on Orders Over $75
     <a href="https://thehappyhealingstore.com/shop/">Shop the Original &rarr;</a>
     <button class="announce-close" aria-label="Dismiss announcement" onclick="document.getElementById('announcement-bar').style.display='none'">&times;</button>
+  </div>
+
+  <!-- ============================================================
+       1b. RESEARCH NOTICE (top — FTC/FDA compliance, must appear at top and bottom)
+  ============================================================ -->
+  <div id="research-notice-top" role="note" aria-label="Research notice">
+    <p><strong>For Research Use Only.</strong> Fenben&#174; products are provided exclusively for researchers, scientists, and laboratories. They are not intended for human consumption and are not intended to diagnose, treat, cure, or prevent any disease.</p>
   </div>
 
   <!-- ============================================================
@@ -1918,7 +1952,7 @@
     <div class="products-header container fade-in-up">
       <p class="section-label">The Collection</p>
       <h2 class="section-title">The Fenben&#174; Collection</h2>
-      <p class="section-subtitle">Seven powerful formulas. One mission &mdash; your wellbeing.</p>
+      <p class="section-subtitle">Seven research-grade formulas. One standard &mdash; verified purity.</p>
     </div>
 
     <div class="carousel-outer" role="region" aria-label="Product carousel" aria-roledescription="carousel">
@@ -1942,7 +1976,7 @@
             </div>
             <div class="product-body">
               <h3 class="product-name">Fenben&#174; Pure Powder</h3>
-              <p class="product-desc">Pure fenbendazole powder for flexible dosing. Lab-verified pharmaceutical grade.</p>
+              <p class="product-desc">Pure fenbendazole powder for flexible research protocols. Lab-verified pharmaceutical grade.</p>
               <div class="product-meta">
                 <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
                 <span class="product-price">View Pricing</span>
@@ -1986,7 +2020,7 @@
             </div>
             <div class="product-body">
               <h3 class="product-name">Fenben&#174; 222mg Tablets</h3>
-              <p class="product-desc">Precise 222mg pharmaceutical-grade tablets. Consistent dosing made easy.</p>
+              <p class="product-desc">Precise 222mg pharmaceutical-grade tablets. Consistent, measurable quantities for research use.</p>
               <div class="product-meta">
                 <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
                 <span class="product-price">View Pricing</span>
@@ -2030,7 +2064,7 @@
             </div>
             <div class="product-body">
               <h3 class="product-name">Fenben&#174; 750mg Tablets</h3>
-              <p class="product-desc">Maximum strength 750mg tablets for advanced wellness protocols.</p>
+              <p class="product-desc">750mg pharmaceutical-grade tablets for higher-concentration investigative protocols.</p>
               <div class="product-meta">
                 <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
                 <span class="product-price">View Pricing</span>
@@ -2163,8 +2197,8 @@
           <div class="standard-icon">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
           </div>
-          <h3>Community-Built Mission</h3>
-          <p>Fenben&#174; was not created in response to hypothetical market demand. It emerged from real communities, real stories, and a refusal to accept &ldquo;there&rsquo;s nothing more we can do&rdquo; as the final word. That is the foundation it still stands on today.</p>
+          <h3>Investigator-Built Mission</h3>
+          <p>Fenben&#174; was not created in response to hypothetical market demand. It was built because researchers and investigators deserved a purpose-formulated, accountable source &mdash; and none existed. That commitment to the research community is the foundation it still stands on today.</p>
         </div>
 
       </div>
@@ -2332,7 +2366,7 @@
           <p>
             Fenbendazole is a benzimidazole compound with decades of documented use and an
             extensive safety profile. Originally developed for veterinary applications, it has
-            become the subject of significant scientific interest in human wellness contexts.
+            become the subject of significant scientific interest in non-veterinary research contexts.
           </p>
           <p>
             At Fenben&#174; by The Happy Healing Store, we source only pharmaceutical-grade
@@ -2341,14 +2375,14 @@
           </p>
           <p>
             We offer multiple formulation formats &mdash; pure powder for maximum flexibility,
-            precisely dosed tablets at 222mg, 500mg, and 750mg strengths, plus enhanced
-            bioavailability Bio Capsules &mdash; to ensure every customer can find their
-            ideal protocol.
+            precisely measured tablets at 222mg, 500mg, and 750mg concentrations, plus enhanced
+            bioavailability Bio Capsules &mdash; to ensure every researcher can identify the
+            formulation that fits their investigative protocol.
           </p>
           <p class="science-disclaimer">
-            &#42; These statements have not been evaluated by the Food and Drug Administration.
-            Fenben&#174; products are not intended to diagnose, treat, cure, or prevent any disease.
-            Consult with a qualified healthcare professional before beginning any new supplement regimen.
+            &#42; Fenben&#174; products are provided exclusively for researchers, scientists, and laboratories.
+            They are not intended for human consumption, and are not intended to diagnose, treat, cure, or prevent any disease.
+            These statements have not been evaluated by the Food and Drug Administration.
           </p>
         </div>
         <div class="fact-card">
@@ -2397,8 +2431,8 @@
     <div class="container">
       <div class="testimonials-header fade-in-up">
         <p class="section-label">Community</p>
-        <h2 class="section-title">Real People. Real Journeys.</h2>
-        <p class="section-subtitle">Hear from members of our Fenben&#174; community.</p>
+        <h2 class="section-title">Verified Purchaser Reviews</h2>
+        <p class="section-subtitle">What researchers and investigators say about the original Fenben&#174; brand.</p>
       </div>
 
       <div class="testimonial-cards">
@@ -2505,7 +2539,7 @@
           <img src="images/ugc-1.jpeg" alt="Customer holding Fenben Tabs" loading="lazy">
         </div>
       </div>
-      <p class="t-disclaimer">&#42; Individual results may vary.</p>
+      <p class="t-disclaimer">&#42; Fenben&#174; products are provided for research purposes. Not intended for human consumption or to diagnose, treat, cure, or prevent any disease.</p>
     </div>
   </section>
 
@@ -2634,10 +2668,12 @@
   ============================================================ -->
   <div id="research-disclaimer" role="note" aria-label="Research notice">
     <p>
-      Fenben&#174; products are provided for researchers, scientists, and laboratories to explore their potential applications.
+      <strong>For Research Use Only.</strong>
+      Fenben&#174; products are provided exclusively for researchers, scientists, and laboratories to explore their potential applications.
+      They are not intended for human consumption.
       These statements have not been evaluated by the Food and Drug Administration.
       These products are not intended to diagnose, treat, cure, or prevent any disease.
-      Please consult a qualified healthcare professional before making any health-related decisions.
+      If you have a health condition, please consult a qualified healthcare professional.
     </p>
   </div>
 
