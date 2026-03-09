@@ -586,7 +586,12 @@
       gap: 12px;
       flex: 1;
       min-width: 160px;
-      justify-content: center;
+      justify-content: flex-start;
+      padding-left: 20px;
+    }
+    .trust-stat:first-child {
+      padding-left: 0;
+      justify-content: flex-start;
     }
     .trust-stat + .trust-stat {
       border-left: 1px solid var(--color-border);
@@ -612,10 +617,41 @@
       color: var(--color-text-muted);
     }
     @media (max-width: 767px) {
-      .trust-inner { gap: 8px; }
-      .trust-stat { min-width: 130px; }
-      .trust-stat + .trust-stat { border-left: none; border-top: 1px solid var(--color-border); padding-top: 8px; }
-      .trust-inner { flex-direction: column; }
+      .trust-inner {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+      }
+      .trust-stat {
+        width: 100%;
+        max-width: 420px;
+        min-width: unset;
+        padding: 16px 20px;
+        border-left: none;
+        border-top: none;
+        border-radius: var(--radius-sm);
+        background: rgba(0,0,0,0.02);
+        justify-content: flex-start;
+        /* Mobile animation — initial hidden state */
+        opacity: 0;
+        transform: translateX(-44px);
+        transition: opacity 0.55s ease, transform 0.55s ease;
+      }
+      .trust-stat:nth-child(even) {
+        transform: translateX(44px);
+      }
+      .trust-stat.trust-visible {
+        opacity: 1;
+        transform: translateX(0);
+      }
+      .trust-stat + .trust-stat {
+        border-left: none;
+        border-top: none;
+        padding-top: 16px;
+      }
+      .trust-stat:first-child {
+        padding-left: 20px;
+      }
     }
 
     /* ============================================================
@@ -3034,6 +3070,24 @@
       }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
 
       document.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
+    })();
+
+    // ---- 6b. TRUST BAR — mobile fade-in (left ↔ right alternate) ----
+    (function() {
+      if (window.innerWidth > 767) return;
+      const trustStats = Array.from(document.querySelectorAll('.trust-stat'));
+      if (!trustStats.length) return;
+      const bar = document.getElementById('trust-bar');
+      if (!bar) return;
+      const observer = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+          trustStats.forEach((stat, i) => {
+            setTimeout(() => stat.classList.add('trust-visible'), i * 150);
+          });
+          observer.disconnect();
+        }
+      }, { threshold: 0.15 });
+      observer.observe(bar);
     })();
 
     // ---- 7. SMOOTH SCROLL for anchor links ----
