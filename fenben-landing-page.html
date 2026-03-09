@@ -632,13 +632,17 @@
         border-radius: var(--radius-sm);
         background: rgba(0,0,0,0.02);
         justify-content: flex-start;
-        /* Mobile animation — initial hidden state */
+      }
+      /* Animation states set by JS only — avoids CSS-before-JS flash */
+      .trust-stat.trust-anim-ready {
         opacity: 0;
         transform: translateX(-44px);
-        transition: opacity 0.55s ease, transform 0.55s ease;
       }
-      .trust-stat:nth-child(even) {
+      .trust-stat.trust-anim-ready.trust-even {
         transform: translateX(44px);
+      }
+      .trust-stat.trust-anim-on {
+        transition: opacity 0.55s ease, transform 0.55s ease;
       }
       .trust-stat.trust-visible {
         opacity: 1;
@@ -3079,15 +3083,30 @@
       if (!trustStats.length) return;
       const bar = document.getElementById('trust-bar');
       if (!bar) return;
-      const observer = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting) {
-          trustStats.forEach((stat, i) => {
-            setTimeout(() => stat.classList.add('trust-visible'), i * 150);
-          });
-          observer.disconnect();
-        }
-      }, { threshold: 0.15 });
-      observer.observe(bar);
+
+      // Step 1: hide instantly via JS (no CSS-caused flash)
+      trustStats.forEach((stat, i) => {
+        stat.classList.add('trust-anim-ready');
+        if (i % 2 !== 0) stat.classList.add('trust-even');
+      });
+
+      // Step 2: after two rAF cycles the hidden state has painted —
+      //         now enable transitions so the reveal animates smoothly
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          trustStats.forEach(stat => stat.classList.add('trust-anim-on'));
+
+          const observer = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting) {
+              trustStats.forEach((stat, i) => {
+                setTimeout(() => stat.classList.add('trust-visible'), i * 150);
+              });
+              observer.disconnect();
+            }
+          }, { threshold: 0.15 });
+          observer.observe(bar);
+        });
+      });
     })();
 
     // ---- 7. SMOOTH SCROLL for anchor links ----
