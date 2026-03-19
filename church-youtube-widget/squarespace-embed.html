@@ -292,8 +292,9 @@
   }
 
   /* Fetch the most recent available video from the sermon playlist.
-     Fetches top 5 candidates, then validates them in one batch call —
-     deleted/private videos are silently omitted by the videos API. */
+     Fetches top 5 candidates, batch-validates them, and also reads
+     liveBroadcastContent so we can detect live without relying solely
+     on the search API (which can lag by several minutes). */
   function fetchLatest(cb) {
     ytGet('playlistItems', {
       part: 'snippet',
@@ -301,28 +302,34 @@
       maxResults: 5
     }, function (data) {
       var items = data && data.items;
-      if (!items || !items.length) { cb(null); return; }
+      if (!items || !items.length) { cb(null, false); return; }
 
       var ids = items.map(function (i) {
         return i.snippet.resourceId.videoId;
       }).join(',');
 
       ytGet('videos', {
-        part: 'status',
+        part: 'snippet,status',
         id: ids
       }, function (vdata) {
-        if (!vdata || !vdata.items || !vdata.items.length) { cb(null); return; }
+        if (!vdata || !vdata.items || !vdata.items.length) { cb(null, false); return; }
 
-        // Build a set of IDs that actually exist (deleted ones are absent)
-        var valid = {};
-        vdata.items.forEach(function (v) { valid[v.id] = true; });
+        // Map id → liveBroadcastContent ('live' | 'upcoming' | 'none')
+        // Deleted/private videos are absent from this response entirely
+        var liveState = {};
+        vdata.items.forEach(function (v) {
+          liveState[v.id] = v.snippet.liveBroadcastContent;
+        });
 
-        // Return the first playlist item that maps to a valid video
+        // Return the first playlist item that came back as valid
         for (var i = 0; i < items.length; i++) {
           var vid = items[i].snippet.resourceId.videoId;
-          if (valid[vid]) { cb(vid); return; }
+          if (liveState[vid] !== undefined) {
+            cb(vid, liveState[vid] === 'live');
+            return;
+          }
         }
-        cb(null);
+        cb(null, false);
       });
     });
   }
@@ -333,9 +340,11 @@
       if (liveId) {
         render(liveId, true);
       } else {
-        fetchLatest(function (sermonId) {
+        // Fall back to playlist — fetchLatest also reports live state
+        // directly from the video record, bypassing search-API lag.
+        fetchLatest(function (sermonId, isLive) {
           if (sermonId) {
-            render(sermonId, false);
+            render(sermonId, isLive);
           } else if (currentId === null) {
             showError('Could not load video. Check API key, Channel ID, and Playlist ID.');
           }
