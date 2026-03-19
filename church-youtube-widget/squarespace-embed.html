@@ -1,0 +1,243 @@
+<!--
+  ╔══════════════════════════════════════════════════════════════╗
+  ║  CHURCH YOUTUBE STREAM SWITCHER — Squarespace Code Block     ║
+  ║                                                              ║
+  ║  Paste this entire file into a Squarespace Code Block.       ║
+  ║                                                              ║
+  ║  SETUP — fill in the three config values below:              ║
+  ║                                                              ║
+  ║  1. API_KEY       — YouTube Data API v3 key                  ║
+  ║     → console.cloud.google.com → APIs & Services → Creds     ║
+  ║     → restrict key to your domain for safety                 ║
+  ║                                                              ║
+  ║  2. CHANNEL_ID    — Your church's YouTube channel ID         ║
+  ║     → youtube.com/@YourChannel → About → Share Channel       ║
+  ║     → Copy Channel ID  (starts with UC…)                     ║
+  ║                                                              ║
+  ║  3. PLAYLIST_ID   — Sermon playlist ID                       ║
+  ║     → Open the playlist → copy ID from URL  (starts with PL) ║
+  ╚══════════════════════════════════════════════════════════════╝
+-->
+
+<style>
+  .cp-wrap {
+    max-width: 800px;
+    margin: 0 auto;
+    font-family: inherit;
+  }
+
+  /* 16:9 responsive iframe container */
+  .cp-video {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    border-radius: 8px;
+    background: #000;
+  }
+  .cp-video iframe {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    border: 0;
+  }
+
+  /* Action row below player */
+  .cp-actions {
+    margin-top: 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  /* Button shared styles */
+  .cp-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 11px 22px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 15px;
+    color: #fff;
+    background: #cc0000;
+    transition: background 0.2s, transform 0.1s;
+    cursor: pointer;
+  }
+  .cp-btn:hover { background: #aa0000; }
+  .cp-btn:active { transform: scale(0.97); }
+
+  /* LIVE badge pill inside button */
+  .cp-live-badge {
+    display: inline-block;
+    padding: 1px 6px;
+    border-radius: 4px;
+    background: rgba(255,255,255,0.25);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    vertical-align: middle;
+  }
+
+  /* Radar pulse icon */
+  .cp-radar {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+  }
+  .cp-radar__dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #fff;
+    position: relative;
+    z-index: 2;
+  }
+  .cp-radar__ring {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.75);
+    width: 8px; height: 8px;
+    animation: cp-radar-pulse 1.6s ease-out infinite;
+  }
+  .cp-radar__ring:nth-child(2) { animation-delay: 0s;    }
+  .cp-radar__ring:nth-child(3) { animation-delay: 0.55s; }
+  .cp-radar__ring:nth-child(4) { animation-delay: 1.1s;  }
+
+  @keyframes cp-radar-pulse {
+    0%   { width: 8px;  height: 8px;  opacity: 1; }
+    100% { width: 32px; height: 32px; opacity: 0; }
+  }
+
+  /* Small status label */
+  .cp-status {
+    font-size: 13px;
+    color: #888;
+  }
+</style>
+
+<div class="cp-wrap" id="cpWrap">
+  <div class="cp-video">
+    <iframe
+      id="cpIframe"
+      src="about:blank"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen>
+    </iframe>
+  </div>
+  <div class="cp-actions">
+    <a id="cpBtn" class="cp-btn" href="#" target="_blank" rel="noopener"></a>
+    <span id="cpStatus" class="cp-status">Loading…</span>
+  </div>
+</div>
+
+<script>
+(function () {
+
+  /* ── CONFIG ─────────────────────────────────────────────── */
+  var API_KEY     = 'YOUR_YOUTUBE_API_KEY';
+  var CHANNEL_ID  = 'YOUR_CHANNEL_ID';          // UCxxxxxxxxxxxxxxxx
+  var PLAYLIST_ID = 'YOUR_SERMON_PLAYLIST_ID';  // PLxxxxxxxxxxxxxxxx
+  var POLL_MS     = 60000; // check for live stream every 60 seconds
+  /* ─────────────────────────────────────────────────────────── */
+
+  var iframe      = document.getElementById('cpIframe');
+  var btn         = document.getElementById('cpBtn');
+  var statusEl    = document.getElementById('cpStatus');
+
+  var currentId   = null;
+  var currentLive = null;
+
+  /* Render the player & button for a given video */
+  function render(videoId, live) {
+    if (videoId === currentId && live === currentLive) return;
+    currentId   = videoId;
+    currentLive = live;
+
+    iframe.src = 'https://www.youtube.com/embed/' + videoId
+      + '?rel=0&modestbranding=1';
+
+    btn.href = 'https://www.youtube.com/watch?v=' + videoId;
+
+    if (live) {
+      btn.innerHTML =
+        '<span class="cp-radar">'
+          + '<span class="cp-radar__ring"></span>'
+          + '<span class="cp-radar__ring"></span>'
+          + '<span class="cp-radar__ring"></span>'
+          + '<span class="cp-radar__dot"></span>'
+        + '</span>'
+        + 'Watch Live <span class="cp-live-badge">Live</span>';
+      statusEl.textContent = '';
+    } else {
+      btn.innerHTML = '&#9654;&#xFE0E; Watch Latest Sermon';
+      statusEl.textContent = 'No live service right now';
+    }
+  }
+
+  /* YouTube API helper */
+  function ytGet(endpoint, params, cb) {
+    var qs = Object.keys(params)
+      .map(function (k) { return k + '=' + encodeURIComponent(params[k]); })
+      .join('&');
+    fetch('https://www.googleapis.com/youtube/v3/' + endpoint + '?' + qs + '&key=' + API_KEY)
+      .then(function (r) { return r.json(); })
+      .then(cb)
+      .catch(function () { cb(null); });
+  }
+
+  /* Check for an active live stream on the channel */
+  function checkLive(cb) {
+    ytGet('search', {
+      part: 'id',
+      channelId: CHANNEL_ID,
+      eventType: 'live',
+      type: 'video'
+    }, function (data) {
+      var items = data && data.items;
+      cb(items && items.length ? items[0].id.videoId : null);
+    });
+  }
+
+  /* Fetch the most recent video from the sermon playlist */
+  function fetchLatest(cb) {
+    ytGet('playlistItems', {
+      part: 'snippet',
+      playlistId: PLAYLIST_ID,
+      maxResults: 1
+    }, function (data) {
+      var items = data && data.items;
+      cb(items && items.length ? items[0].snippet.resourceId.videoId : null);
+    });
+  }
+
+  /* Main update cycle */
+  function update() {
+    checkLive(function (liveId) {
+      if (liveId) {
+        render(liveId, true);
+      } else {
+        fetchLatest(function (sermonId) {
+          if (sermonId) {
+            render(sermonId, false);
+          } else {
+            statusEl.textContent = 'Could not load video — check your config.';
+          }
+        });
+      }
+    });
+  }
+
+  update();
+  setInterval(update, POLL_MS);
+
+})();
+</script>
