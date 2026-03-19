@@ -21,8 +21,10 @@
 
 <style>
   .cp-wrap {
+    display: block;
     width: 100%;
     max-width: 100%;
+    box-sizing: border-box;
     font-family: inherit;
   }
 
@@ -45,73 +47,49 @@
     font-size: 12px;
   }
 
-  /* 16:9 responsive iframe container */
-  .cp-video {
-    position: relative;
-    padding-bottom: 56.25%;
-    height: 0;
-    overflow: hidden;
-    border-radius: 8px;
-    background: #111;
-  }
-  .cp-video iframe {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    border: 0;
-  }
-
-  /* Placeholder shown before video loads */
-  .cp-placeholder {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
+  /* Button row — above the player, centered */
+  .cp-actions {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    color: #666;
-    font-size: 14px;
     gap: 10px;
+    margin-bottom: 60px;
   }
-  .cp-spinner {
-    width: 32px; height: 32px;
-    border: 3px solid #333;
-    border-top-color: #cc0000;
-    border-radius: 50%;
-    animation: cp-spin 0.8s linear infinite;
-  }
-  @keyframes cp-spin { to { transform: rotate(360deg); } }
-
-  /* Action row below player */
-  .cp-actions {
-    margin-top: 14px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    flex-wrap: wrap;
-    min-height: 44px; /* prevent layout jump */
+  @media (max-width: 767px) {
+    .cp-actions { margin-bottom: 30px; }
   }
 
-  /* Button shared styles */
+  /* Default state — cream pill matching site "WATCH NOW" */
   .cp-btn {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 9px;
-    padding: 11px 22px;
-    border-radius: 6px;
+    padding: 14px 44px;
+    border-radius: 50px;
     text-decoration: none;
-    font-weight: 600;
-    font-size: 15px;
-    color: #fff;
-    background: #cc0000;
+    font-family: 'span-semiboldcomp', sans-serif;
+    font-size: 14px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: #1a1a1a;
+    background: #e5dbbe;
+    border: none;
     transition: background 0.2s, transform 0.1s;
     cursor: pointer;
     white-space: nowrap;
   }
-  .cp-btn:hover  { background: #aa0000; color: #fff; }
+  .cp-btn:hover  { background: #d4c9a0; color: #1a1a1a; }
   .cp-btn:active { transform: scale(0.97); }
   .cp-btn--hidden { display: none; }
+
+  /* Live state override — red with radar */
+  .cp-btn--live {
+    background: #cc0000;
+    color: #fff;
+    letter-spacing: 1px;
+  }
+  .cp-btn--live:hover { background: #aa0000; color: #fff; }
 
   /* LIVE badge pill inside button */
   .cp-live-badge {
@@ -161,8 +139,50 @@
     100% { width: 32px; height: 32px; opacity: 0; }
   }
 
-  /* Small status label */
+  /* 16:9 responsive iframe container */
+  .cp-video {
+    display: block;
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    border-radius: 8px;
+    background: #111;
+    box-sizing: border-box;
+  }
+  .cp-video iframe {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    border: 0;
+  }
+
+  /* Placeholder shown while loading */
+  .cp-placeholder {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+    font-size: 14px;
+    gap: 10px;
+  }
+  .cp-spinner {
+    width: 32px; height: 32px;
+    border: 3px solid #333;
+    border-top-color: #cc0000;
+    border-radius: 50%;
+    animation: cp-spin 0.8s linear infinite;
+  }
+  @keyframes cp-spin { to { transform: rotate(360deg); } }
+
+  /* Status label */
   .cp-status {
+    font-family: 'span-semiboldcomp', sans-serif;
     font-size: 13px;
     color: #888;
   }
@@ -171,7 +191,7 @@
 
 <div class="cp-wrap" id="cpWrap">
 
-  <!-- Config warning — hidden by JS once config is valid -->
+  <!-- Config warning — shown until config is filled in -->
   <div class="cp-config-warn" id="cpConfigWarn" style="display:none">
     <strong>⚙️ Setup required</strong>
     Open the Code Block and replace the placeholder values:<br>
@@ -180,6 +200,13 @@
     <code>YOUR_SERMON_PLAYLIST_ID</code>
   </div>
 
+  <!-- Button above the player -->
+  <div class="cp-actions">
+    <a id="cpBtn" class="cp-btn cp-btn--hidden" href="#" target="_blank" rel="noopener"></a>
+    <span id="cpStatus" class="cp-status"></span>
+  </div>
+
+  <!-- 16:9 player -->
   <div class="cp-video">
     <iframe
       id="cpIframe"
@@ -187,16 +214,10 @@
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
       allowfullscreen>
     </iframe>
-    <!-- Spinner shown while loading -->
     <div class="cp-placeholder" id="cpPlaceholder">
       <div class="cp-spinner"></div>
       <span>Loading…</span>
     </div>
-  </div>
-
-  <div class="cp-actions">
-    <a id="cpBtn" class="cp-btn cp-btn--hidden" href="#" target="_blank" rel="noopener"></a>
-    <span id="cpStatus" class="cp-status"></span>
   </div>
 
 </div>
@@ -220,7 +241,7 @@
   var currentId   = null;
   var currentLive = null;
 
-  /* Show the setup warning and stop if config is still placeholder */
+  /* Show setup warning and stop if config is still placeholder */
   var CONFIG_MISSING =
     API_KEY     === 'YOUR_YOUTUBE_API_KEY'   ||
     CHANNEL_ID  === 'YOUR_CHANNEL_ID'        ||
@@ -230,7 +251,7 @@
     configWarn.style.display = 'block';
     placeholder.querySelector('span').textContent = 'Config not set — see yellow box above.';
     placeholder.querySelector('.cp-spinner').style.display = 'none';
-    return; // stop here — nothing else to do
+    return;
   }
 
   /* Render the player & button for a given video */
@@ -242,7 +263,6 @@
     iframe.src = 'https://www.youtube.com/embed/' + videoId
       + '?rel=0&modestbranding=1';
 
-    /* Hide spinner once iframe starts loading */
     iframe.onload = function () {
       placeholder.style.display = 'none';
     };
@@ -251,6 +271,7 @@
     btn.classList.remove('cp-btn--hidden');
 
     if (live) {
+      btn.classList.add('cp-btn--live');
       btn.innerHTML =
         '<span class="cp-radar">'
           + '<span class="cp-radar__ring"></span>'
@@ -262,7 +283,8 @@
       statusEl.textContent = '';
       statusEl.className = 'cp-status';
     } else {
-      btn.innerHTML = '&#9654;&#xFE0E; Watch Latest Sermon';
+      btn.classList.remove('cp-btn--live');
+      btn.innerHTML = 'Watch Latest Sermon';
       statusEl.textContent = 'No live service right now';
       statusEl.className = 'cp-status';
     }
@@ -283,7 +305,6 @@
     fetch('https://www.googleapis.com/youtube/v3/' + endpoint + '?' + qs + '&key=' + API_KEY)
       .then(function (r) { return r.json(); })
       .then(function (data) {
-        /* Surface API errors clearly */
         if (data && data.error) {
           showError('YouTube API error: ' + data.error.message);
           cb(null);
@@ -291,7 +312,7 @@
           cb(data);
         }
       })
-      .catch(function (err) {
+      .catch(function () {
         showError('Network error — check browser console.');
         cb(null);
       });
@@ -332,7 +353,6 @@
           if (sermonId) {
             render(sermonId, false);
           } else if (currentId === null) {
-            /* Only show error if nothing has ever loaded */
             showError('Could not load video. Check API key, Channel ID, and Playlist ID.');
           }
         });
