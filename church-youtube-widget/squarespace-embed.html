@@ -291,15 +291,39 @@
     });
   }
 
-  /* Fetch the most recent video from the sermon playlist */
+  /* Fetch the most recent available video from the sermon playlist.
+     Fetches top 5 candidates, then validates them in one batch call —
+     deleted/private videos are silently omitted by the videos API. */
   function fetchLatest(cb) {
     ytGet('playlistItems', {
       part: 'snippet',
       playlistId: PLAYLIST_ID,
-      maxResults: 1
+      maxResults: 5
     }, function (data) {
       var items = data && data.items;
-      cb(items && items.length ? items[0].snippet.resourceId.videoId : null);
+      if (!items || !items.length) { cb(null); return; }
+
+      var ids = items.map(function (i) {
+        return i.snippet.resourceId.videoId;
+      }).join(',');
+
+      ytGet('videos', {
+        part: 'status',
+        id: ids
+      }, function (vdata) {
+        if (!vdata || !vdata.items || !vdata.items.length) { cb(null); return; }
+
+        // Build a set of IDs that actually exist (deleted ones are absent)
+        var valid = {};
+        vdata.items.forEach(function (v) { valid[v.id] = true; });
+
+        // Return the first playlist item that maps to a valid video
+        for (var i = 0; i < items.length; i++) {
+          var vid = items[i].snippet.resourceId.videoId;
+          if (valid[vid]) { cb(vid); return; }
+        }
+        cb(null);
+      });
     });
   }
 
