@@ -278,16 +278,41 @@
       });
   }
 
-  /* Check for an active livestream on the channel */
+  /* Check for an active livestream on the channel.
+     Uses the uploads playlist (derived from CHANNEL_ID by swapping
+     the 'UC' prefix for 'UU') instead of the search API, which has
+     multi-minute propagation delays. The uploads playlist is updated
+     immediately when a stream starts, and liveBroadcastContent on
+     the video record reflects live state in real time. */
   function checkLive(cb) {
-    ytGet('search', {
-      part: 'id',
-      channelId: CHANNEL_ID,
-      eventType: 'live',
-      type: 'video'
+    // Channel IDs start with 'UC'; the uploads playlist starts with 'UU'
+    var uploadsId = 'UU' + CHANNEL_ID.slice(2);
+    ytGet('playlistItems', {
+      part: 'snippet',
+      playlistId: uploadsId,
+      maxResults: 5
     }, function (data) {
       var items = data && data.items;
-      cb(items && items.length ? items[0].id.videoId : null);
+      if (!items || !items.length) { cb(null); return; }
+
+      var ids = items.map(function (i) {
+        return i.snippet.resourceId.videoId;
+      }).join(',');
+
+      ytGet('videos', {
+        part: 'snippet',
+        id: ids
+      }, function (vdata) {
+        if (!vdata || !vdata.items) { cb(null); return; }
+        for (var i = 0; i < vdata.items.length; i++) {
+          var v = vdata.items[i];
+          if (v.snippet.liveBroadcastContent === 'live') {
+            cb(v.id);
+            return;
+          }
+        }
+        cb(null);
+      });
     });
   }
 
