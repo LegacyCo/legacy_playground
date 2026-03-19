@@ -26,6 +26,25 @@
     font-family: inherit;
   }
 
+  /* Config-missing warning banner */
+  .cp-config-warn {
+    background: #fff3cd;
+    border: 1px solid #ffc107;
+    border-radius: 6px;
+    padding: 12px 16px;
+    font-size: 13px;
+    color: #856404;
+    margin-bottom: 12px;
+    line-height: 1.5;
+  }
+  .cp-config-warn strong { display: block; margin-bottom: 4px; }
+  .cp-config-warn code {
+    background: rgba(0,0,0,0.08);
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-size: 12px;
+  }
+
   /* 16:9 responsive iframe container */
   .cp-video {
     position: relative;
@@ -33,7 +52,7 @@
     height: 0;
     overflow: hidden;
     border-radius: 8px;
-    background: #000;
+    background: #111;
   }
   .cp-video iframe {
     position: absolute;
@@ -42,6 +61,28 @@
     border: 0;
   }
 
+  /* Placeholder shown before video loads */
+  .cp-placeholder {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+    font-size: 14px;
+    gap: 10px;
+  }
+  .cp-spinner {
+    width: 32px; height: 32px;
+    border: 3px solid #333;
+    border-top-color: #cc0000;
+    border-radius: 50%;
+    animation: cp-spin 0.8s linear infinite;
+  }
+  @keyframes cp-spin { to { transform: rotate(360deg); } }
+
   /* Action row below player */
   .cp-actions {
     margin-top: 14px;
@@ -49,6 +90,7 @@
     align-items: center;
     gap: 12px;
     flex-wrap: wrap;
+    min-height: 44px; /* prevent layout jump */
   }
 
   /* Button shared styles */
@@ -65,9 +107,11 @@
     background: #cc0000;
     transition: background 0.2s, transform 0.1s;
     cursor: pointer;
+    white-space: nowrap;
   }
-  .cp-btn:hover { background: #aa0000; }
+  .cp-btn:hover  { background: #aa0000; color: #fff; }
   .cp-btn:active { transform: scale(0.97); }
+  .cp-btn--hidden { display: none; }
 
   /* LIVE badge pill inside button */
   .cp-live-badge {
@@ -122,9 +166,20 @@
     font-size: 13px;
     color: #888;
   }
+  .cp-status--error { color: #cc0000; }
 </style>
 
 <div class="cp-wrap" id="cpWrap">
+
+  <!-- Config warning — hidden by JS once config is valid -->
+  <div class="cp-config-warn" id="cpConfigWarn" style="display:none">
+    <strong>⚙️ Setup required</strong>
+    Open the Code Block and replace the placeholder values:<br>
+    <code>YOUR_YOUTUBE_API_KEY</code> &nbsp;·&nbsp;
+    <code>YOUR_CHANNEL_ID</code> &nbsp;·&nbsp;
+    <code>YOUR_SERMON_PLAYLIST_ID</code>
+  </div>
+
   <div class="cp-video">
     <iframe
       id="cpIframe"
@@ -132,29 +187,51 @@
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
       allowfullscreen>
     </iframe>
+    <!-- Spinner shown while loading -->
+    <div class="cp-placeholder" id="cpPlaceholder">
+      <div class="cp-spinner"></div>
+      <span>Loading…</span>
+    </div>
   </div>
+
   <div class="cp-actions">
-    <a id="cpBtn" class="cp-btn" href="#" target="_blank" rel="noopener"></a>
-    <span id="cpStatus" class="cp-status">Loading…</span>
+    <a id="cpBtn" class="cp-btn cp-btn--hidden" href="#" target="_blank" rel="noopener"></a>
+    <span id="cpStatus" class="cp-status"></span>
   </div>
+
 </div>
 
 <script>
 (function () {
 
-  /* ── CONFIG ─────────────────────────────────────────────── */
+  /* ── CONFIG — replace all three values ──────────────────── */
   var API_KEY     = 'YOUR_YOUTUBE_API_KEY';
   var CHANNEL_ID  = 'YOUR_CHANNEL_ID';          // UCxxxxxxxxxxxxxxxx
   var PLAYLIST_ID = 'YOUR_SERMON_PLAYLIST_ID';  // PLxxxxxxxxxxxxxxxx
-  var POLL_MS     = 60000; // check for live stream every 60 seconds
+  var POLL_MS     = 60000; // re-check for live stream every 60 s
   /* ─────────────────────────────────────────────────────────── */
 
   var iframe      = document.getElementById('cpIframe');
   var btn         = document.getElementById('cpBtn');
   var statusEl    = document.getElementById('cpStatus');
+  var placeholder = document.getElementById('cpPlaceholder');
+  var configWarn  = document.getElementById('cpConfigWarn');
 
   var currentId   = null;
   var currentLive = null;
+
+  /* Show the setup warning and stop if config is still placeholder */
+  var CONFIG_MISSING =
+    API_KEY     === 'YOUR_YOUTUBE_API_KEY'   ||
+    CHANNEL_ID  === 'YOUR_CHANNEL_ID'        ||
+    PLAYLIST_ID === 'YOUR_SERMON_PLAYLIST_ID';
+
+  if (CONFIG_MISSING) {
+    configWarn.style.display = 'block';
+    placeholder.querySelector('span').textContent = 'Config not set — see yellow box above.';
+    placeholder.querySelector('.cp-spinner').style.display = 'none';
+    return; // stop here — nothing else to do
+  }
 
   /* Render the player & button for a given video */
   function render(videoId, live) {
@@ -165,7 +242,13 @@
     iframe.src = 'https://www.youtube.com/embed/' + videoId
       + '?rel=0&modestbranding=1';
 
+    /* Hide spinner once iframe starts loading */
+    iframe.onload = function () {
+      placeholder.style.display = 'none';
+    };
+
     btn.href = 'https://www.youtube.com/watch?v=' + videoId;
+    btn.classList.remove('cp-btn--hidden');
 
     if (live) {
       btn.innerHTML =
@@ -177,24 +260,44 @@
         + '</span>'
         + 'Watch Live <span class="cp-live-badge">Live</span>';
       statusEl.textContent = '';
+      statusEl.className = 'cp-status';
     } else {
       btn.innerHTML = '&#9654;&#xFE0E; Watch Latest Sermon';
       statusEl.textContent = 'No live service right now';
+      statusEl.className = 'cp-status';
     }
   }
 
-  /* YouTube API helper */
+  function showError(msg) {
+    placeholder.querySelector('span').textContent = msg;
+    placeholder.querySelector('.cp-spinner').style.display = 'none';
+    statusEl.textContent = msg;
+    statusEl.className = 'cp-status cp-status--error';
+  }
+
+  /* YouTube Data API v3 helper */
   function ytGet(endpoint, params, cb) {
     var qs = Object.keys(params)
       .map(function (k) { return k + '=' + encodeURIComponent(params[k]); })
       .join('&');
     fetch('https://www.googleapis.com/youtube/v3/' + endpoint + '?' + qs + '&key=' + API_KEY)
       .then(function (r) { return r.json(); })
-      .then(cb)
-      .catch(function () { cb(null); });
+      .then(function (data) {
+        /* Surface API errors clearly */
+        if (data && data.error) {
+          showError('YouTube API error: ' + data.error.message);
+          cb(null);
+        } else {
+          cb(data);
+        }
+      })
+      .catch(function (err) {
+        showError('Network error — check browser console.');
+        cb(null);
+      });
   }
 
-  /* Check for an active live stream on the channel */
+  /* Check for an active livestream on the channel */
   function checkLive(cb) {
     ytGet('search', {
       part: 'id',
@@ -228,8 +331,9 @@
         fetchLatest(function (sermonId) {
           if (sermonId) {
             render(sermonId, false);
-          } else {
-            statusEl.textContent = 'Could not load video — check your config.';
+          } else if (currentId === null) {
+            /* Only show error if nothing has ever loaded */
+            showError('Could not load video. Check API key, Channel ID, and Playlist ID.');
           }
         });
       }
