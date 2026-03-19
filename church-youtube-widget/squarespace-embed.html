@@ -28,25 +28,6 @@
     font-family: inherit;
   }
 
-  /* Config-missing warning banner */
-  .cp-config-warn {
-    background: #fff3cd;
-    border: 1px solid #ffc107;
-    border-radius: 6px;
-    padding: 12px 16px;
-    font-size: 13px;
-    color: #856404;
-    margin-bottom: 12px;
-    line-height: 1.5;
-  }
-  .cp-config-warn strong { display: block; margin-bottom: 4px; }
-  .cp-config-warn code {
-    background: rgba(0,0,0,0.08);
-    padding: 1px 5px;
-    border-radius: 3px;
-    font-size: 12px;
-  }
-
   /* Button row — above the player, centered */
   .cp-actions {
     display: flex;
@@ -191,15 +172,6 @@
 
 <div class="cp-wrap" id="cpWrap">
 
-  <!-- Config warning — shown until config is filled in -->
-  <div class="cp-config-warn" id="cpConfigWarn" style="display:none">
-    <strong>⚙️ Setup required</strong>
-    Open the Code Block and replace the placeholder values:<br>
-    <code>YOUR_YOUTUBE_API_KEY</code> &nbsp;·&nbsp;
-    <code>YOUR_CHANNEL_ID</code> &nbsp;·&nbsp;
-    <code>YOUR_SERMON_PLAYLIST_ID</code>
-  </div>
-
   <!-- Button above the player -->
   <div class="cp-actions">
     <a id="cpBtn" class="cp-btn cp-btn--hidden" href="#" target="_blank" rel="noopener"></a>
@@ -225,10 +197,10 @@
 <script>
 (function () {
 
-  /* ── CONFIG — replace all three values ──────────────────── */
-  var API_KEY     = 'YOUR_YOUTUBE_API_KEY';
-  var CHANNEL_ID  = 'YOUR_CHANNEL_ID';          // UCxxxxxxxxxxxxxxxx
-  var PLAYLIST_ID = 'YOUR_SERMON_PLAYLIST_ID';  // PLxxxxxxxxxxxxxxxx
+  /* ── CONFIG ─────────────────────────────────────────────── */
+  var API_KEY     = 'AIzaSyC38R-53PYsYSFZSMjoulWhswM57jOzyI4';
+  var CHANNEL_ID  = 'UCyFXM_QV8TU7kCYykY1YUfA';
+  var PLAYLIST_ID = 'PL-J1TyONqnHIYHcXoTiHBzU7UGX9vWNEd';
   var POLL_MS     = 60000; // re-check for live stream every 60 s
   /* ─────────────────────────────────────────────────────────── */
 
@@ -236,23 +208,9 @@
   var btn         = document.getElementById('cpBtn');
   var statusEl    = document.getElementById('cpStatus');
   var placeholder = document.getElementById('cpPlaceholder');
-  var configWarn  = document.getElementById('cpConfigWarn');
 
   var currentId   = null;
   var currentLive = null;
-
-  /* Show setup warning and stop if config is still placeholder */
-  var CONFIG_MISSING =
-    API_KEY     === 'YOUR_YOUTUBE_API_KEY'   ||
-    CHANNEL_ID  === 'YOUR_CHANNEL_ID'        ||
-    PLAYLIST_ID === 'YOUR_SERMON_PLAYLIST_ID';
-
-  if (CONFIG_MISSING) {
-    configWarn.style.display = 'block';
-    placeholder.querySelector('span').textContent = 'Config not set — see yellow box above.';
-    placeholder.querySelector('.cp-spinner').style.display = 'none';
-    return;
-  }
 
   /* Render the player & button for a given video */
   function render(videoId, live) {
